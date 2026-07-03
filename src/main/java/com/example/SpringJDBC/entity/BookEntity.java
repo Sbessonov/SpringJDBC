@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "book")
 @AllArgsConstructor
@@ -16,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 public class BookEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -24,5 +22,5 @@ public class BookEntity {
     private String author;
 
     @Column(name = "publishing_year")
-    private LocalDateTime publishingYear;
+    private String publishingYear;
 }

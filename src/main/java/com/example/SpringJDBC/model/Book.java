@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,5 +14,5 @@ public class Book {
     private Long id;
     private String title;
     private String author;
-    private LocalDateTime publishingYear;
+    private String publishingYear;
 }

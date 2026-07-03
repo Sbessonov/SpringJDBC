@@ -1,20 +1,29 @@
 package com.example.SpringJDBC.controller;
 
+import com.example.SpringJDBC.entity.BookEntity;
 import com.example.SpringJDBC.model.Book;
 import com.example.SpringJDBC.service.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("api/books")
+@RestController
+@RequestMapping("/api/books")
 @RequiredArgsConstructor
 public class BookController {
 
     private final BookService bookService;
 
+    @GetMapping("/all")
+    public Page<BookEntity> getAllBooks(Pageable pageable) {
+        return bookService.getAllBooks(pageable);
+    }
 
     @PostMapping("/post")
     public Book createBook(@RequestBody Book book) {
-        return bookService.createBook(book);
+        Long id = bookService.createBook(book);
+        return bookService.getBook(id);
     }
 
 
@@ -24,7 +33,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public Book updateBookById(@PathVariable Long id, Book book) {
+    public Book updateBookById(@PathVariable Long id, @RequestBody Book book) {
         return bookService.updateBook(id, book);
     }
 

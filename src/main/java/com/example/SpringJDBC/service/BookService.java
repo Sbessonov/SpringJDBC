@@ -2,14 +2,18 @@ package com.example.SpringJDBC.service;
 
 import com.example.SpringJDBC.entity.BookEntity;
 import com.example.SpringJDBC.model.Book;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface BookService {
 
-    public Book createBook(Book book);
+    Page<BookEntity> getAllBooks(Pageable pageable);
 
-    public void deleteBook(Long id);
+     Long createBook(Book book);
 
-    public Book updateBook(Long id, Book book);
+     void deleteBook(Long id);
 
-    public Book getBook(Long id);
+     Book updateBook(Long id, Book book);
+
+     Book getBook(Long id);
 }

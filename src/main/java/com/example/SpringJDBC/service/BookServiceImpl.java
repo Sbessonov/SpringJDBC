@@ -1,9 +1,12 @@
 package com.example.SpringJDBC.service;
 
+import com.example.SpringJDBC.entity.BookEntity;
 import com.example.SpringJDBC.mapper.BookMapper;
 import com.example.SpringJDBC.model.Book;
 import com.example.SpringJDBC.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,9 +19,14 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
+    public Page<BookEntity> getAllBooks(Pageable pageable) {
+        return bookRepository.getBooks(pageable.getPageNumber(), pageable.getPageSize());
+    }
+
+    @Override
     @Transactional
-    public Book createBook(Book book) {
-        return bookMapper.toModel(bookRepository.createBook(book));
+    public Long createBook(Book book) {
+        return bookRepository.createBook(book);
     }
 
     @Override
@@ -31,12 +39,12 @@ public class BookServiceImpl implements BookService {
     @Transactional
     public Book updateBook(Long id, Book book) {
         bookRepository.updateBook(id, book);
-        return book;
+        return getBook(id);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Book getBook(Long id) {
-        return null;
+        return bookMapper.toModel(bookRepository.getBookById(id));
     }
 }
