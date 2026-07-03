@@ -22,5 +22,7 @@ public class BookEntity {
 
     private String title;
     private String author;
+
+    @Column(name = "publishing_year")
     private LocalDateTime publishingYear;
 }
