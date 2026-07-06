@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @JdbcTest
 @Import(BookRepository.class)
-@TestPropertySource(properties = "spring.sql.init.mode=always") // включить инициализацию из schema.sql
+@TestPropertySource(properties = "spring.sql.init.mode=always")
 @Sql(scripts = "/schem-init.sql")
 public class BookRepositoryTest {
 
