@@ -6,6 +6,7 @@ import com.example.SpringJDBC.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,30 +17,31 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping("/all")
-    public Page<BookEntity> getAllBooks(Pageable pageable) {
-        return bookService.getAllBooks(pageable);
+    public ResponseEntity<Page<BookEntity>> getAllBooks(Pageable pageable) {
+        return ResponseEntity.ok(bookService.getAllBooks(pageable));
     }
 
     @PostMapping("/post")
-    public Book createBook(@RequestBody Book book) {
+    public ResponseEntity<Book> createBook(@RequestBody Book book) {
         Long id = bookService.createBook(book);
-        return bookService.getBook(id);
+        return ResponseEntity.ok().body(bookService.getBook(id));
     }
 
 
     @GetMapping("/{id}")
-    public Book getBookById(@PathVariable Long id) {
-        return bookService.getBook(id);
+    public ResponseEntity<Book> getBookById(@PathVariable Long id) {
+        return ResponseEntity.ok(bookService.getBook(id));
     }
 
     @PutMapping("/{id}")
-    public Book updateBookById(@PathVariable Long id, @RequestBody Book book) {
-        return bookService.updateBook(id, book);
+    public ResponseEntity<Book> updateBookById(@PathVariable Long id, @RequestBody Book book) {
+        return ResponseEntity.ok(bookService.updateBook(id, book));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBookById(@PathVariable Long id, Book book) {
+    public ResponseEntity<Void> deleteBookById(@PathVariable Long id, Book book) {
         bookService.deleteBook(id);
+        return ResponseEntity.noContent().build();
     }
 
 

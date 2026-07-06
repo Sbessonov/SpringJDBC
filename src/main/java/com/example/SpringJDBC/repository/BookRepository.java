@@ -2,6 +2,7 @@ package com.example.SpringJDBC.repository;
 
 import com.example.SpringJDBC.entity.BookEntity;
 import com.example.SpringJDBC.model.Book;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,13 +19,11 @@ import java.sql.Statement;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class BookRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public BookRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public Page<BookEntity> getBooks(int page, int size) {
         int offset = page * size;
